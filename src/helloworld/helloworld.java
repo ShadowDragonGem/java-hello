@@ -16,7 +16,7 @@ public class helloworld {
     /**
      * @param args the command line arguments
      */
-        void UNtestRun() {
+        void testRun() {
             outExpect("Hello!");
             run();
             outClose();
