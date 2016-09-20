@@ -277,4 +277,9 @@ public class helloworld {
     void testClock() {
         Clock clock = test(new Clock());
     }
+    
+    void testTimezoneClock()
+    {
+        TimezoneClock tzClock = test(new TimezoneClock());
+    }
 }
