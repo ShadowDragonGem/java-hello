@@ -14,13 +14,51 @@ package helloworld;
 
 import static kiss.API.*;
 
+enum Timezone {
+    MST,
+    MDT,
+    UTC
+}
+
 public class TimezoneClock extends Clock {
+   
+    TimezoneClock(Timezone tz)
+    {
+        setTimezone(tz);
+    }
+    
+    TimezoneClock()
+    {
+        setTimezone(Timezone.UTC);
+    }
+    
+    void setTimezone(Timezone tz){
+        super.setHours(time()/3600);
+        super.start();
+        switch (tz){
+            case MST : timezoneShift = -7; break;
+            case MDT : timezoneShift = -6; break;
+            case UTC : timezoneShift = 0; break;
+        }
+    }
+    
+    double mod(double a, double b){
+        double u=a/b;
+        return b * (u-Math.floor(u));
+    }
+    
+    
     double timezoneShift = 0.0;
+    
     @Override
-    /*double getHours(){
-        return 0;
-    }*/
+    double getHours(){
+        return mod(super.getHours()+timezoneShift, 12.0);
+    }
         
+    @Override
+    void setHours(double _hours){
+        super.setHours(mod(_hours - timezoneShift, 12.0));
+    }
     
     void testGetTime()
     {
@@ -50,4 +88,19 @@ public class TimezoneClock extends Clock {
         double shouldBe = 1.00 + 1.0/3600.0;
         assert(abs(now-shouldBe) < .1/3600.0);
     }
+    
+    void testMST(){
+        Clock clock = new TimezoneClock(Timezone.MDT);
+        println("time: " + asInt(clock.getHours()) + ":" + asInt(clock.getMinutes()));
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof TimezoneClock){
+            return timezoneShift == ((TimezoneClock)o).timezoneShift && super.equals(o);
+        }else{
+            return false;
+        }
+    }
+    
 }
