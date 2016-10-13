@@ -25,11 +25,11 @@ public class CollectionHomework {
         String test_right2 = "dee";
         
         HashSet<String> pairs = new HashSet<String>();
-      try(Close out = outExpect( "[(sam, dee),(rachel, tim)]")){
-        pairs.add("(" + test_left1 + ", " + test_right1 + ")");
-        pairs.add("(" + test_left2 + ", " + test_right2 + ")");
-        println(pairs);
-      }
+        try(Close out = outExpect( "[(sam, dee),(rachel, tim)]")){
+            pairs.add("(" + test_left1 + ", " + test_right1 + ")");
+            pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+            println(pairs);
+        }
     }
     
     void testPairsDuplicate(){
@@ -39,12 +39,36 @@ public class CollectionHomework {
         String test_right2 = "frank";
         
         HashSet<String> pairs = new HashSet<String>();
-    try(Close out = outExpect( "[(lily, alex),(drake, frank)]")){
-        pairs.add("(" + test_left1 + ", " + test_right1 + ")");
-        pairs.add("(" + test_left2 + ", " + test_right2 + ")");
-        pairs.add("(" + test_left2 + ", " + test_right2 + ")");
-        println(pairs);
-      }
+        try(Close out = outExpect( "[(lily, alex),(drake, frank)]")){
+            pairs.add("(" + test_left1 + ", " + test_right1 + ")");
+            pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+            pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+            println(pairs);
+        }
+    }
+    
+    void testRemovePair(){
+        String test_left1 = "cleo";
+        String test_right1 = "peter";
+        String test_left2 = "pat";
+        String test_right2 = "fire";
+        
+        HashSet<String> pairs = new HashSet<String>();
+        try(Close out = outExpect( "[(cleo, peter),(pat, fire)]")){
+            pairs.add("(" + test_left1 + ", " + test_right1 + ")");
+            pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+            pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+            println(pairs);
+        }
+        String newPair = "(sherlock, john)";
+        pairs.add(newPair);
+        try(Close out = outExpect("[(cleo, peter),(sherlock, john),(pat, fire)]")){
+                println(pairs);
+        }
+        pairs.remove("(pat, fire)");
+        try (Close out = outExpect("[(cleo, peter),(sherlock, john)]")){
+            println(pairs);
+        }
     }
     
     void run() {
