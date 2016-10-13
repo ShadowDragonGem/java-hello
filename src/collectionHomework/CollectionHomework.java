@@ -25,11 +25,26 @@ public class CollectionHomework {
         String test_right2 = "dee";
         
         HashSet<String> pairs = new HashSet<String>();
-        
+      try(Close out = outExpect( "[(sam, dee),(rachel, tim)]")){
         pairs.add("(" + test_left1 + ", " + test_right1 + ")");
         pairs.add("(" + test_left2 + ", " + test_right2 + ")");
         println(pairs);
-
+      }
+    }
+    
+    void testPairsDuplicate(){
+        String test_left1 = "lily";
+        String test_right1 = "alex";
+        String test_left2 = "drake";
+        String test_right2 = "frank";
+        
+        HashSet<String> pairs = new HashSet<String>();
+    try(Close out = outExpect( "[(lily, alex),(drake, frank)]")){
+        pairs.add("(" + test_left1 + ", " + test_right1 + ")");
+        pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+        pairs.add("(" + test_left2 + ", " + test_right2 + ")");
+        println(pairs);
+      }
     }
     
     void run() {
@@ -49,5 +64,6 @@ public class CollectionHomework {
             pairs.add("(" + pair_left[i] + ", " + pair_right[i] + ")");
             println(pairs.size());
         }
+        println(pairs);
     }
 }
